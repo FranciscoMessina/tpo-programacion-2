@@ -1,5 +1,7 @@
+import imple.ConjuntoMamushka;
 import imple.MultiPila;
 import imple.Pila;
+import tda.ConjuntoMamushkaTDA;
 import tda.MultiPilaTDA;
 import tda.PilaTDA;
 
@@ -7,6 +9,30 @@ import tda.PilaTDA;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
+        pruebasMultiPila();
+        pruebasConjuntoMamushka();
+    }
+
+    private static void pruebasConjuntoMamushka() {
+        ConjuntoMamushkaTDA conjunto = new ConjuntoMamushka();
+
+        conjunto.inicializar();
+        conjunto.guardar(2);
+        conjunto.guardar(2);
+        conjunto.guardar(1);
+        conjunto.guardar(3);
+
+        System.out.println("Elemento elegido: " + conjunto.elegir());
+
+        System.out.println("El 1 esta " + conjunto.perteneceCant(1) + " veces en el conjunto.");
+
+        conjunto.sacar(2);
+        System.out.println("Elemento elegido después de sacar 2: " + conjunto.elegir());
+        conjunto.sacar(2);
+        System.out.println("Elemento elegido después de sacar 2 nuevamente: " + conjunto.elegir());
+    }
+
+    private static void pruebasMultiPila() {
         MultiPilaTDA multiPila = new MultiPila();
 
         multiPila.inicializarPila();
@@ -29,7 +55,7 @@ public class Main {
         PilaTDA topeMultiPila = multiPila.tope(2);
         System.out.println("Tope de la MultiPila con 2 elementos:");
 
-        multiPila.desapilar(pila2);
+        multiPila.desapilar(pila1);
         System.out.println("Pila2 Desapilada");
 
         PilaTDA topeMultiPila2 = multiPila.tope(3);

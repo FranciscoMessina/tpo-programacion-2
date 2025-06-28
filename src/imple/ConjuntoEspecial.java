@@ -7,7 +7,10 @@ Ejercicio 1:
 
 Conjunto Especial
 
-Se define un nuevo TDA denominado ConjuntoEspecialTDA basado en ConjuntoTDA, con la particularidad de permitir determinar si las operaciones se realizan correctamente, o no. Algunos de sus métodos devuelven el objeto Respuesta, que contiene dos elementos: un booleano que determina la correctitud de ejecución y un entero que informa lo solicitado por el metodo en sí, si el metodo lo requiere y su ejecución fue satisfactoria. Su especificación se muestra en el anexo, leer detenidamente los comentarios de cada metodo.
+Se define un nuevo TDA denominado ConjuntoEspecialTDA basado en ConjuntoTDA, con la particularidad de permitir determinar si las operaciones se realizan correctamente, o no.
+Algunos de sus métodos devuelven el objeto Respuesta, que contiene dos elementos: un booleano que determina la correctitud de ejecución y un entero que informa
+lo solicitado por el metodo en sí, si el metodo lo requiere y su ejecución fue satisfactoria.
+Su especificación se muestra en el anexo, leer detenidamente los comentarios de cada metodo.
  */
 public class ConjuntoEspecial implements ConjuntoEspecialTDA {
     private int[] a;

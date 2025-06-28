@@ -4,9 +4,16 @@ import tda.MultiPilaTDA;
 import tda.PilaTDA;
 
 /*
-Ejercicio 3
+Ejercicio 3:
 
-Se define un nuevo TDA denominado MultiPilaTDA basado en PilaTDA, con la particularidad de recibir una PilaTDA por parámetro al apilar (la misma debe apilarse a continuación de la multipila), y otra al desapilar (la misma debe chequear que los valores tope de la multipila coincidan para desapilar, sino no debe hacer nada). Tanto en el método apilar como en el método desapilar, ambas pilas vienen inicializadas y contienen cualquier cantidad de elementos (incluso cero). El método tope devuelve una PilaTDA con los primeros elementos de la multipila, se recibe por parámetro un número mayor o igual que cero, que representa la cantidad de ellos (de recibir un número superior a la cantidad de elementos de la multipila, debe devolver todos). Se solicita realizar la presente implementación con el TDA ya visto PilaTDA, o en su defecto con estructuras dinámicas (no puede realizarse la implementación con estructuras estáticas). Su especificación se muestra en el anexo, leer detenidamente los comentarios de cada método.
+Se define un nuevo TDA denominado MultiPilaTDA basado en PilaTDA, con la particularidad de recibir una PilaTDA por parámetro al apilar
+(la misma debe apilarse a continuación de la multipila), y otra al desapilar (la misma debe chequear que los valores tope de la multipila
+coincidan para desapilar, sino no debe hacer nada). Tanto en el método apilar como en el método desapilar, ambas pilas vienen inicializadas
+y contienen cualquier cantidad de elementos (incluso cero). El método tope devuelve una PilaTDA con los primeros elementos de la multipila,
+se recibe por parámetro un número mayor o igual que cero, que representa la cantidad de ellos (de recibir un número superior a la
+cantidad de elementos de la multipila, debe devolver todos). Se solicita realizar la presente implementación con el TDA ya visto PilaTDA,
+o en su defecto con estructuras dinámicas (no puede realizarse la implementación con estructuras estáticas). Su especificación se muestra en el anexo,
+leer detenidamente los comentarios de cada método.
  */
 public class MultiPila implements MultiPilaTDA {
     private int[] elementos;
@@ -44,7 +51,6 @@ public class MultiPila implements MultiPilaTDA {
         PilaTDA aux = new Pila();
         aux.inicializarPila();
 
-
         // Copiamos los valores de la pila recibida a una pila auxiliar,
         while (!valores.pilaVacia()) {
             aux.apilar(valores.tope());
@@ -77,12 +83,17 @@ public class MultiPila implements MultiPilaTDA {
     @Override
     // Complejidad Lineal
     public void desapilar(PilaTDA valores) {
+
+        if (valores.pilaVacia()) {
+            // Si la pila recibida está vacía, no hacemos nada.
+            return;
+        }
         // Creamos una pila auxiliar para poder restaurar los valores
         // de la pila recibida al final del proceso.
         PilaTDA aux = new Pila();
         aux.inicializarPila();
 
-        // Creamos una variable para contar la cantidad de valores que tiene la pila recibiad.
+        // Creamos una variable para contar la cantidad de valores que tiene la pila recibida.
         int cantidadDeValoresRecibidos = 0;
         int[] valoresRecibidos = new int[100];
 
@@ -103,6 +114,7 @@ public class MultiPila implements MultiPilaTDA {
         PilaTDA topeMultipila = this.tope(cantidadDeValoresRecibidos);
 
         boolean topesIguales = true;
+        // Verificamos que los valores recibidos coincidan con los topes de la multipila.
         for (int i = 0; i < cantidadDeValoresRecibidos; i++) {
             if (valoresRecibidos[i] != topeMultipila.tope()) {
                 topesIguales = false;
@@ -112,20 +124,16 @@ public class MultiPila implements MultiPilaTDA {
 
         if (!topesIguales) {
             // Si los topes no son iguales, restauramos los valores de la pila recibida.
+            // Y no hacemos nada con la multipila.
             while (!aux.pilaVacia()) {
                 valores.apilar(aux.tope());
                 aux.desapilar();
             }
-            return; // No hacemos nada más si los topes no coinciden.
+            return;
         }
 
-
-        for (int i = 0; i < cantidadDeValoresRecibidos; i++) {
-            System.out.print(valoresRecibidos[i] + " ");
-        }
-
-        // Reducimso el indice en la cantidad de valores que recibimos en la pila de valores.
-        // Asi desapilando esos elementos de la multipila.
+        // Restamos al índice la cantidad de valores que recibimos en la pila de valores.
+        // desapilando esos elementos de la multipila.
         this.indice = this.indice - cantidadDeValoresRecibidos;
         // Restauramos los valores de la pila recibida.
         while (!aux.pilaVacia()) {

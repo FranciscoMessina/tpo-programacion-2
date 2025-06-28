@@ -2,9 +2,10 @@ package imple;
 
 import tda.ConjuntoMamushkaTDA;
 /*
-Ejercicio 2
+Ejercicio 2:
 
-Se define un nuevo TDA denominado ConjuntoMamushkaTDA basado en ConjuntoTDA, con la particularidad de que se permite más de una acepción de cada elemento agregado. Tal cual como en ConjuntoTDA, no existe orden alguno. Su especificación se muestra en el anexo, leer detenidamente los comentarios de cada método.
+Se define un nuevo TDA denominado ConjuntoMamushkaTDA basado en ConjuntoTDA, con la particularidad de que se permite más de una acepción de cada elemento agregado.
+Tal cual como en ConjuntoTDA, no existe orden alguno. Su especificación se muestra en el anexo, leer detenidamente los comentarios de cada método.
  */
 public class ConjuntoMamushka implements ConjuntoMamushkaTDA {
 
@@ -65,7 +66,12 @@ public class ConjuntoMamushka implements ConjuntoMamushkaTDA {
     // Cuenta la cantidad de veces que un elemento aparece en el conjunto,
     // Y devuelve ese número.
     public int perteneceCant(int dato) {
+        // Creamos una variable para contar las ocurrencias del dato
         int cantidadDeOcurrencias = 0;
+
+        // Recorremos los valores del conjunto
+        // Cuando uno de ellos es igual al dato que buscamos,
+        // Aumentamos el contador.
         for (int i = 0; i < this.cant; i++) {
             if (this.a[i] == dato) {
                 cantidadDeOcurrencias++;
