@@ -2,18 +2,15 @@ package uso;
 
 import imple.Cola;
 import imple.Conjunto;
+import imple.DiccionarioMultiple;
 import imple.Pila;
-import tda.ColaTDA;
-import tda.ConjuntoTDA;
-import tda.PilaTDA;
+import tda.*;
 
 public class Funciones {
     public static void main(String[] args) {
         Funciones funciones = new Funciones();
-
-
-
     }
+
     /*
     Ejercicio 6:
 
@@ -22,7 +19,7 @@ public class Funciones {
      */
     // Complejidad Lineal
     private float porcentajeDeElementosParesEnPila(PilaTDA pila) {
-        if(pila.pilaVacia()) {
+        if (pila.pilaVacia()) {
             return 0.0f; // Si la pila está vacía, el porcentaje es 0
         }
 
@@ -33,7 +30,7 @@ public class Funciones {
         // Recorremos la pila y contamos los elementos pares
         // y la cantidad total de elementos.
         // Almacenandolos en una pila auxiliar para poder restaurar la original.
-        while(!pila.pilaVacia()) {
+        while (!pila.pilaVacia()) {
             int elemento = pila.tope();
             pila.desapilar();
             if (elemento % 2 == 0) {
@@ -148,7 +145,7 @@ public class Funciones {
 
             // Si el elemento todavia no habia aparecido
             // Lo agregamos a la nueva colar
-            if (!yaAparecio){
+            if (!yaAparecio) {
 
                 nuevaCola.acolar(elementos[i]);
             }
@@ -166,30 +163,213 @@ public class Funciones {
     Se define un método que reciba una PilaTDA y una ColaTDA y devuelva un
     ConjuntoTDA con los elementos comunes de la pila y de la cola.
      */
+    // COmplejidad Polinómica
     private ConjuntoTDA comunesEntreColaYPila(PilaTDA pila, ColaTDA cola) {
         ConjuntoTDA conjunto = new Conjunto();
         conjunto.inicializarConjunto();
 
+        // Creamos una pila auxiliar para restaurar la original.
         PilaTDA pilaAux = new Pila();
         pilaAux.inicializarPila();
-        ColaTDA colaAux = new Cola();
-        colaAux.inicializarCola();
 
-        int[] elementosPila = new int[100];
-        int indicePila = 0;
+        // En la cola usamos un array, porque es mas facil para buscar
+        // Conicidencias, y no necesitamos otra cola para mantener el orden correcto.
         int[] elementosCola = new int[100];
         int indiceCola = 0;
 
-        while(!pila.pilaVacia()) {
-            elementosPila[indicePila] = pila.tope();
-            indicePila++;
+        // Primero guardamos todos los elementos de la pila en otra pila.
+        while (!pila.pilaVacia()) {
+            pilaAux.apilar(pila.tope());
+
             pila.desapilar();
         }
 
+        // Guardamos los elementos de la cola en un array.
+        while (!cola.colaVacia()) {
+            elementosCola[indiceCola] = cola.primero();
+            indiceCola++;
+            cola.desacolar();
+        }
 
+        // Después recorremos cada elemento de la pila auxiliar,
+        while(!pilaAux.pilaVacia()) {
 
+            int elementoPila = pilaAux.tope();
+
+            // Y buscamos si es igual a uno de la cola.
+            for (int i = 0; i < indiceCola; i++) {
+                // Si es igual lo agregamos al conjunto.
+                if (elementosCola[i] == elementoPila) {
+                    conjunto.agregar(elementoPila);
+                }
+            }
+
+            // Cuando terminamos con ese elemento,
+            // lo devolvemos a la pila original.
+            pilaAux.desapilar();
+            pila.apilar(elementoPila);
+        }
+
+        for (int i = 0; i < indiceCola; i++) {
+            // volvemos a agregar el elemento a la cola original.
+            cola.acolar(elementosCola[i]);
+        }
 
 
         return conjunto;
     }
+    /*
+    Ejercicio 10:
+    Se define un método que reciba una PilaTDA y devuelva un DiccionarioSimpleTDA,
+    en el cual se guardarán los elementos de la pila como claves, y la
+    cantidad de apariciones de dicho elemento en la pila, como valores.
+     */
+    // Complejidad Polinomica
+    private DiccionarioSimpleTDA diccionarioDeAparicionesEnPila(PilaTDA pila) {
+        DiccionarioSimpleTDA diccionario = new imple.DiccionarioSimple();
+        diccionario.inicializarDiccionario();
+
+        // Creamos una pila auxiliar para restaurar la original.
+        PilaTDA pilaAux = new Pila();
+        pilaAux.inicializarPila();
+
+        // Recorremos la pila y contamos las apariciones de cada elemento.
+
+        while (!pila.pilaVacia()) {
+            ConjuntoTDA clavesDicc = diccionario.claves();
+            int elemento = pila.tope();
+            pila.desapilar();
+            pilaAux.apilar(elemento);
+
+            if (clavesDicc.pertenece(elemento)) {
+                int apariciones = diccionario.recuperar(elemento);
+                diccionario.agregar(elemento, apariciones + 1);
+            } else {
+                diccionario.agregar(elemento, 1);
+            }
+        }
+
+        // Restauramos la pila original
+        while (!pilaAux.pilaVacia()) {
+            pila.apilar(pilaAux.tope());
+            pilaAux.desapilar();
+        }
+
+        return diccionario;
+    }
+
+    /*
+    Ejercicio 11:
+    Se define un método que reciba un DiccionarioMultipleTDA y devuelva una ColaTDA
+    con todos los valores del diccionario, sin ninguna repetición.
+     */
+    //  Complejidad Polinomica
+    private ColaTDA valoresDiccionarioSinRepetidosACola(DiccionarioMultipleTDA diccionario) {
+        // Creamos la cola que vamos a devolver.
+        ColaTDA cola = new Cola();
+        cola.inicializarCola();
+
+        // Obtenemos las claves del diccionario
+        ConjuntoTDA claves = diccionario.claves();
+
+        // Creamos un conjunto para almacenar los valores únicos
+        ConjuntoTDA valoresUnicos = new Conjunto();
+        valoresUnicos.inicializarConjunto();
+
+        // Recorremos las claves y las agregamos a la cola
+        while (!claves.conjuntoVacio()) {
+            int clave = claves.elegir();
+
+            ConjuntoTDA valores = diccionario.recuperar(clave);
+
+            while (!valores.conjuntoVacio()) {
+                int valor = valores.elegir();
+
+                // Si el valor no está en el conjunto de valores únicos,
+                // lo agregamos
+                if (!valoresUnicos.pertenece(valor)) {
+                    cola.acolar(valor);
+                    valoresUnicos.agregar(valor);
+                }
+
+                // Sacamos el valor del conjunto para evitar duplicados
+                valores.sacar(valor);
+            }
+
+        }
+
+        return cola;
+    }
+    /*
+    Ejercicio 12:
+    Se define un método que calcule la suma de los elementos
+    con un valor impar de un ABB
+     */
+    // No estoy seguro si es la suma de todos los valores impares,
+    // o la cantidad de elementos impares.
+    // Usamos recursividad para recorrer el arbol.
+    private int sumaElementosConValorImparABB(ABBTDA abb) {
+
+        // Si el arbol esta vacio, devolvemos 0;
+        if (abb.arbolVacio()) {
+            return 0;
+        }
+
+        int suma = 0;
+
+        int raiz = abb.raiz();
+
+        // Si la raiz es impar, la sumamos
+        if (raiz % 2 != 0) {
+            suma += raiz;
+        }
+
+        // Sumamos los elementos del hijo izquierdo
+        suma += sumaElementosConValorImparABB(abb.hijoIzq());
+        // Sumamos los elementos del hijo derecho
+        suma += sumaElementosConValorImparABB(abb.hijoDer());
+
+        return suma;
+    }
+    /*
+    Ejercicio 13:
+
+    Se define un método que calcule la cantidad de hojas con un valor par de un ABB
+     */
+    // Usamos recursividad para recorrer el arbol.
+    private int cantidadHojasParABB(ABBTDA abb) {
+        // Si el arbol esta vacio no hay hojas, devolvemos 0;
+        if (abb.arbolVacio()) {
+            return 0;
+        }
+
+        boolean esHoja = abb.hijoIzq().arbolVacio() && abb.hijoDer().arbolVacio();
+
+        int cantidadHojasPar = 0;
+
+        if (esHoja) {
+            // Si es una hoja, verificamos si su valor es par
+            if (abb.raiz() % 2 == 0) {
+                cantidadHojasPar = 1; // Contamos esta hoja
+            }
+        } else {
+            // Si no es una hoja, seguimos buscando en los hijos
+            cantidadHojasPar += cantidadHojasParABB(abb.hijoIzq());
+            cantidadHojasPar += cantidadHojasParABB(abb.hijoDer());
+        }
+
+
+        return cantidadHojasPar;
+
+    }
+
+    private ConjuntoTDA verticesPuenteEntre(GrafoTDA grafo, int verticeA, int verticeB) {
+        // Creamos un conjunto para almacenar los vértices puente
+        ConjuntoTDA conjuntoPuente = new Conjunto();
+        conjuntoPuente.inicializarConjunto();
+
+
+        return conjuntoPuente;
+    }
+
 }
