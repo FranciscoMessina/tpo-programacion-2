@@ -54,48 +54,48 @@ c)  Estimar la complejidad, salvo en el caso de haber utilizado recursividad.
 Partiendo de un `AVL`/`Árbol B`, según sea el caso, se solicita realizar las operaciones explicitadas. Debe fundamentarse cada paso (incluyendo el nombre de la operación que interviene, si existiese) y realizarse el diagrama correspondiente paso a paso.
 
 16. Partiendo de un AVL vacío, se solicita realizar las siguientes operaciones:
-    a. Agregar el 20
-    b. Agregar el 29
-    c. Agregar el 21
-    d. Agregar el 12
-    e. Agregar el 7
-    f. Eliminar el 20
+    1. Agregar el 20
+    2. Agregar el 29
+    3. Agregar el 21
+    4. Agregar el 12
+    5. Agregar el 7
+    6. Eliminar el 20
 
 17. Partiendo de un AVL vacío, se solicita realizar las siguientes operaciones:
-    a. Agregar el 30
-    b. Agregar el 36
-    c. Agregar el 10
-    d. Agregar el 15
-    e. Agregar el 12
-    f. Eliminar el 30
+    1. Agregar el 30
+    2. Agregar el 36
+    3. Agregar el 10
+    4. Agregar el 15
+    5. Agregar el 12
+    6. Eliminar el 30
 
 18. Partiendo de un AVL vacío, se solicita realizar las siguientes operaciones:
-    a. Agregar el 8
-    b. Agregar el 5
-    c. Agregar el 6
-    d. Agregar el 3
-    e. Agregar el 1
-    f. Eliminar el 3
+    1. Agregar el 8
+    2. Agregar el 5
+    3. Agregar el 6
+    4. Agregar el 3
+    5. Agregar el 1
+    6. Eliminar el 3
 
 19. Partiendo de un Árbol B vacío de orden 4, se solicita realizar las siguientes operaciones:
-    a. Agregar el 82
-    b. Agregar el 12
-    c. Agregar el 102
-    d. Agregar el 36
-    e. Agregar el 61
-    f. Eliminar el 82
-    g. Eliminar el 36
-    h. Eliminar el 102
+    1. Agregar el 82
+    2. Agregar el 12
+    3. Agregar el 102
+    4. Agregar el 36
+    5. Agregar el 61
+    6. Eliminar el 82
+    7. Eliminar el 36
+    8. Eliminar el 102
 
 20. Partiendo de un Árbol B vacío de orden 5, se solicita realizar las siguientes operaciones:
-    a. Agregar el 53
-    b. Agregar el 62
-    c. Agregar el 31
-    d. Agregar el 105
-    e. Agregar el 85
-    f. Agregar el 55
-    g. Eliminar el 105
-    h. Eliminar el 62
+    1. Agregar el 53
+    2. Agregar el 62
+    3. Agregar el 31
+    4. Agregar el 105
+    5. Agregar el 85
+    6. Agregar el 55
+    7. Eliminar el 105
+    8. Eliminar el 62
 
 ### Anexo - especificaciones:
 

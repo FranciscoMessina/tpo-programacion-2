@@ -2,27 +2,24 @@ package uso;
 
 import imple.Cola;
 import imple.Conjunto;
-import imple.DiccionarioMultiple;
 import imple.Pila;
 import tda.*;
-import tda.GrafoTDA;
 import tda.ABBTDA;
 import tda.ConjuntoTDA;
-import imple.Grafo;
-import imple.Conjunto;
 
 public class Funciones {
     public static void main(String[] args) {
         Funciones funciones = new Funciones();
     }
 
-    /*
-    Ejercicio 6:
-
-    Se define un método que reciba una PilaTDA y devuelva un float (número real)
-    con el porcentaje de cantidad de elementos pares de la pila.
+    /**
+     * Ejercicio 6:
+     * <p>
+     * Se define un método que reciba una PilaTDA y devuelva un float (número real)
+     * con el porcentaje de cantidad de elementos pares de la pila.
+     * <p>
+     * Complejidad Lineal
      */
-    // Complejidad Lineal
     private float porcentajeDeElementosParesEnPila(PilaTDA pila) {
         if (pila.pilaVacia()) {
             return 0.0f; // Si la pila está vacía, el porcentaje es 0
@@ -56,12 +53,14 @@ public class Funciones {
         return ((cantidadPares / cantidadElementos) * 100);
     }
 
-    /*
-    Ejercicio 7:
-    Se define un método que reciba una PilaTDA y devuelva un ConjuntoTDA
-    con los elementos repetidos de la pila.
+    /**
+     * Ejercicio 7:
+     * <p>
+     * Se define un método que reciba una PilaTDA y devuelva un ConjuntoTDA
+     * con los elementos repetidos de la pila.
+     * <p>
+     * Complejidad Polinómica
      */
-    // Complejidad Polinómica
     private ConjuntoTDA conjuntoDeElementosRepetidosDePila(PilaTDA pila) {
         // Creamos un conjunto para almacenar los elementos únicos
         ConjuntoTDA conjunto = new Conjunto();
@@ -103,15 +102,16 @@ public class Funciones {
         return conjunto;
     }
 
-    /*
-    Ejercicio 8:
-
-    Se define un método que reciba una ColaTDA y devuelva una nueva ColaTDA con
-    los elementos de la original, sin ninguna repetición. Se debe dejar el primer
-    representante de cada uno de los repetidos, respetando el orden en que aparecen
-    todos los elementos en la original.
+    /**
+     * Ejercicio 8:
+     * <p>
+     * Se define un método que reciba una ColaTDA y devuelva una nueva ColaTDA con
+     * los elementos de la original, sin ninguna repetición. Se debe dejar el primer
+     * representante de cada uno de los repetidos, respetando el orden en que aparecen
+     * todos los elementos en la original.
+     * <p>
+     * Complejidad Polinómica
      */
-    // Complejidad Polinómica
     private ColaTDA removerElementosDuplicados(ColaTDA cola) {
         // Creamos una nueva cola para devolver los elementos
         ColaTDA nuevaCola = new Cola();
@@ -163,12 +163,14 @@ public class Funciones {
         return nuevaCola;
     }
 
-    /*
-    Ejercicio 9:
-    Se define un método que reciba una PilaTDA y una ColaTDA y devuelva un
-    ConjuntoTDA con los elementos comunes de la pila y de la cola.
+    /**
+     * Ejercicio 9:
+     * <p>
+     * Se define un método que reciba una PilaTDA y una ColaTDA y devuelva un
+     * ConjuntoTDA con los elementos comunes de la pila y de la cola.
+     * <p>
+     * Complejidad Polinómica
      */
-    // COmplejidad Polinómica
     private ConjuntoTDA comunesEntreColaYPila(PilaTDA pila, ColaTDA cola) {
         ConjuntoTDA conjunto = new Conjunto();
         conjunto.inicializarConjunto();
@@ -197,7 +199,7 @@ public class Funciones {
         }
 
         // Después recorremos cada elemento de la pila auxiliar,
-        while(!pilaAux.pilaVacia()) {
+        while (!pilaAux.pilaVacia()) {
 
             int elementoPila = pilaAux.tope();
 
@@ -223,13 +225,16 @@ public class Funciones {
 
         return conjunto;
     }
-    /*
-    Ejercicio 10:
-    Se define un método que reciba una PilaTDA y devuelva un DiccionarioSimpleTDA,
-    en el cual se guardarán los elementos de la pila como claves, y la
-    cantidad de apariciones de dicho elemento en la pila, como valores.
+
+    /**
+     * Ejercicio 10:
+     * <p>
+     * Se define un método que reciba una PilaTDA y devuelva un DiccionarioSimpleTDA,
+     * en el cual se guardarán los elementos de la pila como claves, y la
+     * cantidad de apariciones de dicho elemento en la pila, como valores.
+     * <p>
+     * Complejidad Polinómica
      */
-    // Complejidad Polinomica
     private DiccionarioSimpleTDA diccionarioDeAparicionesEnPila(PilaTDA pila) {
         DiccionarioSimpleTDA diccionario = new imple.DiccionarioSimple();
         diccionario.inicializarDiccionario();
@@ -263,12 +268,13 @@ public class Funciones {
         return diccionario;
     }
 
-    /*
-    Ejercicio 11:
-    Se define un método que reciba un DiccionarioMultipleTDA y devuelva una ColaTDA
-    con todos los valores del diccionario, sin ninguna repetición.
+    /**
+     * Ejercicio 11:
+     * Se define un método que reciba un DiccionarioMultipleTDA y devuelva una ColaTDA
+     * con todos los valores del diccionario, sin ninguna repetición.
+     * <p>
+     * Complejidad Polinómica
      */
-    //  Complejidad Polinomica
     private ColaTDA valoresDiccionarioSinRepetidosACola(DiccionarioMultipleTDA diccionario) {
         // Creamos la cola que vamos a devolver.
         ColaTDA cola = new Cola();
@@ -305,14 +311,15 @@ public class Funciones {
 
         return cola;
     }
-    /*
-    Ejercicio 12:
-    Se define un método que calcule la suma de los elementos
-    con un valor impar de un ABB
+
+    /**
+     * Ejercicio 12:
+     * <p>
+     * Se define un método que calcule la suma de los elementos
+     * con un valor impar de un ABB
+     * <p>
+     * Usamos recursividad para recorrer el árbol.
      */
-    // No estoy seguro si es la suma de todos los valores impares,
-    // o la cantidad de elementos impares.
-    // Usamos recursividad para recorrer el arbol.
     private int sumaElementosConValorImparABB(ABBTDA abb) {
 
         // Si el arbol esta vacio, devolvemos 0;
@@ -336,18 +343,21 @@ public class Funciones {
 
         return suma;
     }
-    /*
-    Ejercicio 13:
 
-    Se define un método que calcule la cantidad de hojas con un valor par de un ABB
+    /**
+     * Ejercicio 13:
+     * <p>
+     * Se define un método que calcule la cantidad de hojas con un valor par de un ABB
+     * <p>
+     * Recorremos el arbol con recursividad.
      */
-    // Usamos recursividad para recorrer el arbol.
     private int cantidadHojasParABB(ABBTDA abb) {
         // Si el arbol esta vacio no hay hojas, devolvemos 0;
         if (abb.arbolVacio()) {
             return 0;
         }
 
+        // Verificamos si el nodo actual es una hoja. Revisando si ambos hijos estan vacios.
         boolean esHoja = abb.hijoIzq().arbolVacio() && abb.hijoDer().arbolVacio();
 
         int cantidadHojasPar = 0;
@@ -369,13 +379,17 @@ public class Funciones {
     }
 
 
-    /*
-   Ejercicio 14:
-       /*
-    Encuentra vértices P que conectan A → P → B en el grafo.
-    Verifica aristas existentes para cada vértice posible.
-    Complejidad: O(n) (n = número de vértices).
-    */
+    /**
+     * Ejercicio 14:
+     * <p>
+     * Se define un método que reciba un `GrafoTDA` y dos enteros que representen vértices,
+     * y devuelva un `ConjuntoTDA` con todos los vértices puente entre los vértices
+     * recibidos por parámetro. Se define que un vértice `p` es puente entre dos
+     * vértices `o` y `d`, si hay una arista que comienza en `o` y termina en `p` y otra
+     * que comienza en `p` y termina en `d`
+     * <p>
+     * Complejidad Polinómica
+     */
     private ConjuntoTDA verticesPuenteEntre(GrafoTDA grafo, int verticeA, int verticeB) {
         // Creamos un conjunto para almacenar los vértices puente
         ConjuntoTDA conjuntoPuente = new Conjunto();
@@ -399,12 +413,16 @@ public class Funciones {
         return conjuntoPuente;
     }
 
-    /*
-    Ejercicio 15:
-    Calcula (aristas salientes - aristas entrantes) para un vértice.
-    Recorre todos los vértices contando conexiones.
-    Complejidad: O(n) (n = número de vértices).
-    */
+    /**
+     * Ejercicio 15:
+     * <p>
+     * Se define un método que reciba un `GrafoTDA` y un entero que represente un vértice,
+     * y devuelva el grado del vértice recibido por parámetro. Se define el grado de un
+     * vértice `v` como el entero que es igual a la resta entre la cantidad de aristas que
+     * salen de `v` menos la cantidad de aristas que llegan a `v`.
+     * <p>
+     * Complejidad Polinomica
+     */
     private int calcularGradoVertice(GrafoTDA grafo, int vertice) {
         int aristasSalientes = 0;
         int aristasEntrantes = 0;
