@@ -16,20 +16,26 @@ o en su defecto con estructuras dinámicas (no puede realizarse la implementaci�
 leer detenidamente los comentarios de cada método.
  */
 public class MultiPila implements MultiPilaTDA {
-    private int[] elementos;
-    private int indice;
+
+    private class Nodo {
+        int info;
+        Nodo sig;
+    }
+
+
+    private Nodo primero;
 
     // Complejidad Constante
     @Override
     public void inicializarPila() {
-        this.elementos = new int[100];
-        this.indice = 0;
+        this.primero = null;
+
     }
 
     // Complejidad Constante
     @Override
     public boolean pilaVacia() {
-        return this.indice == 0;
+        return this.primero == null;
     }
 
     /**
@@ -64,9 +70,12 @@ public class MultiPila implements MultiPilaTDA {
         while (!aux.pilaVacia()) {
             int topAux = aux.tope();
             valores.apilar(topAux);
-            this.elementos[this.indice] = topAux;
-            this.indice++;
             aux.desapilar();
+            Nodo nuevo = new Nodo();
+            nuevo.info = topAux;
+            nuevo.sig = this.primero; // El nuevo nodo apunta al primer nodo de la multipila
+            this.primero = nuevo;
+
         }
     }
 
@@ -93,19 +102,21 @@ public class MultiPila implements MultiPilaTDA {
         PilaTDA aux = new Pila();
         aux.inicializarPila();
 
-        // Creamos una variable para contar la cantidad de valores que tiene la pila recibida.
+        // Pila para guardar los valores recibidos usando estructuras dinámicas
+        PilaTDA valoresRecibidos = new Pila();
+        valoresRecibidos.inicializarPila();
+
         int cantidadDeValoresRecibidos = 0;
-        int[] valoresRecibidos = new int[100];
 
 
         // Por cada elemento de la pila recibida, sumamos uno al contador.
-        // Y guardamos el valor en un array para poder comparar luego.
+        // Y guardamos el valor en una pila para poder comparar luego.
         while (!valores.pilaVacia()) {
             int topeValor = valores.tope();
             aux.apilar(topeValor);
+            valoresRecibidos.apilar(topeValor);
             valores.desapilar();
-            // Guardamos el valor en el array de valores recibidos.
-            valoresRecibidos[cantidadDeValoresRecibidos] = topeValor;
+
             // Incrementamos el contador de valores.
             cantidadDeValoresRecibidos++;
         }
@@ -114,11 +125,22 @@ public class MultiPila implements MultiPilaTDA {
         PilaTDA topeMultipila = this.tope(cantidadDeValoresRecibidos);
 
         boolean topesIguales = true;
+
+        PilaTDA auxComparacion = new Pila();
+        auxComparacion.inicializarPila();
+
+        // Copiamos valoresRecibidos para no modificarla
+        while (!valoresRecibidos.pilaVacia()) {
+            auxComparacion.apilar(valoresRecibidos.tope());
+            valoresRecibidos.desapilar();
+        }
+
         // Verificamos que los valores recibidos coincidan con los topes de la multipila.
-        for (int i = 0; i < cantidadDeValoresRecibidos; i++) {
-            if (valoresRecibidos[i] != topeMultipila.tope()) {
+        while(!auxComparacion.pilaVacia() && !topeMultipila.pilaVacia()) {
+            if(auxComparacion.tope() != topeMultipila.tope()) {
                 topesIguales = false;
             }
+            auxComparacion.desapilar();
             topeMultipila.desapilar();
         }
 
@@ -133,8 +155,10 @@ public class MultiPila implements MultiPilaTDA {
         }
 
         // Restamos al índice la cantidad de valores que recibimos en la pila de valores.
-        // desapilando esos elementos de la multipila.
-        this.indice = this.indice - cantidadDeValoresRecibidos;
+
+        for (int i = 0; i < cantidadDeValoresRecibidos; i++) {
+            this.primero = this.primero.sig;
+        }
         // Restauramos los valores de la pila recibida.
         while (!aux.pilaVacia()) {
             valores.apilar(aux.tope());
@@ -164,20 +188,21 @@ public class MultiPila implements MultiPilaTDA {
         PilaTDA pilaAux = new Pila();
         pilaAux.inicializarPila();
 
-        System.out.println("Cantidad solicitada: " + cantidad);
-        System.out.println("Indice actual: " + this.indice);
-        // Iteramos desde el índice actual hacia atras, hasta llegar a la cantidad de elementos solicitados para devolver.
-        for (int i = this.indice - 1; i > this.indice - (cantidad + 1) && i >= 0; i--) {
-            System.out.println("i en TOPE" + i);
+        Nodo actual = this.primero;
+        int contador = 0;
 
-            // Agregamos el elemento a la pila a devolver.
-            pilaAux.apilar(this.elementos[i]);
+        // Iteramos hasta que un elemento sea nulo o hayamos alcanzado la cantidad solicitada.
+        while(actual != null && contador < cantidad) {
+            // Contamos los elementos de la multipila hasta la cantidad solicitada.
+            pilaAux.apilar(actual.info);
+            actual = actual.sig;
+            contador++;
         }
+
 
         while (!pilaAux.pilaVacia()) {
             // Desapilamos los elementos de la pila auxiliar y los apilamos en la pila a devolver.
-            int topeAux = pilaAux.tope();
-            pila.apilar(topeAux);
+            pila.apilar(pilaAux.tope());
             pilaAux.desapilar();
         }
 

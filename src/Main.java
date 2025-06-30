@@ -58,6 +58,9 @@ public class Main {
         System.out.println("Tope de la MultiPila con 2 elementos:");
 
         multiPila.desapilar(pila1);
+        System.out.println("Pila1 No tiene que haberse desapilado.");
+
+        multiPila.desapilar(pila2);
         System.out.println("Pila2 Desapilada");
 
         PilaTDA topeMultiPila2 = multiPila.tope(3);
