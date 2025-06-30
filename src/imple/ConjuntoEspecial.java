@@ -1,16 +1,16 @@
 package imple;
+
 import tda.ConjuntoEspecialTDA;
-/*
 
-
-Ejercicio 1:
-
-Conjunto Especial
-
-Se define un nuevo TDA denominado ConjuntoEspecialTDA basado en ConjuntoTDA, con la particularidad de permitir determinar si las operaciones se realizan correctamente, o no.
-Algunos de sus métodos devuelven el objeto Respuesta, que contiene dos elementos: un booleano que determina la correctitud de ejecución y un entero que informa
-lo solicitado por el metodo en sí, si el metodo lo requiere y su ejecución fue satisfactoria.
-Su especificación se muestra en el anexo, leer detenidamente los comentarios de cada metodo.
+/**
+ * Ejercicio 1:
+ * <p>
+ * Conjunto Especial
+ * <p>
+ * Se define un nuevo TDA denominado ConjuntoEspecialTDA basado en ConjuntoTDA, con la particularidad de permitir determinar si las operaciones se realizan correctamente, o no.
+ * Algunos de sus métodos devuelven el objeto Respuesta, que contiene dos elementos: un booleano que determina la correctitud de ejecución y un entero que informa
+ * lo solicitado por el metodo en sí, si el metodo lo requiere y su ejecución fue satisfactoria.
+ * Su especificación se muestra en el anexo, leer detenidamente los comentarios de cada metodo.
  */
 public class ConjuntoEspecial implements ConjuntoEspecialTDA {
     private int[] a;
@@ -59,7 +59,7 @@ public class ConjuntoEspecial implements ConjuntoEspecialTDA {
 
         // Si el conjunto esta vacio, modificamos la respuesta
         // para indicar un error, y la devolvemos.
-        if(this.conjuntoVacio()) {
+        if (this.conjuntoVacio()) {
             respuesta.error = true;
             return respuesta;
         }

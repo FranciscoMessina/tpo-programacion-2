@@ -3,17 +3,17 @@ package imple;
 import tda.MultiPilaTDA;
 import tda.PilaTDA;
 
-/*
-Ejercicio 3:
-
-Se define un nuevo TDA denominado MultiPilaTDA basado en PilaTDA, con la particularidad de recibir una PilaTDA por parámetro al apilar
-(la misma debe apilarse a continuación de la multipila), y otra al desapilar (la misma debe chequear que los valores tope de la multipila
-coincidan para desapilar, sino no debe hacer nada). Tanto en el método apilar como en el método desapilar, ambas pilas vienen inicializadas
-y contienen cualquier cantidad de elementos (incluso cero). El método tope devuelve una PilaTDA con los primeros elementos de la multipila,
-se recibe por parámetro un número mayor o igual que cero, que representa la cantidad de ellos (de recibir un número superior a la
-cantidad de elementos de la multipila, debe devolver todos). Se solicita realizar la presente implementación con el TDA ya visto PilaTDA,
-o en su defecto con estructuras dinámicas (no puede realizarse la implementación con estructuras estáticas). Su especificación se muestra en el anexo,
-leer detenidamente los comentarios de cada método.
+/**
+ * Ejercicio 3:
+ * <p>
+ * Se define un nuevo TDA denominado MultiPilaTDA basado en PilaTDA, con la particularidad de recibir una PilaTDA por parámetro al apilar
+ * (la misma debe apilarse a continuación de la multipila), y otra al desapilar (la misma debe chequear que los valores tope de la multipila
+ * coincidan para desapilar, sino no debe hacer nada). Tanto en el método apilar como en el método desapilar, ambas pilas vienen inicializadas
+ * y contienen cualquier cantidad de elementos (incluso cero). El método tope devuelve una PilaTDA con los primeros elementos de la multipila,
+ * se recibe por parámetro un número mayor o igual que cero, que representa la cantidad de ellos (de recibir un número superior a la
+ * cantidad de elementos de la multipila, debe devolver todos). Se solicita realizar la presente implementación con el TDA ya visto PilaTDA,
+ * o en su defecto con estructuras dinámicas (no puede realizarse la implementación con estructuras estáticas). Su especificación se muestra en el anexo,
+ * leer detenidamente los comentarios de cada método.
  */
 public class MultiPila implements MultiPilaTDA {
 
@@ -136,8 +136,8 @@ public class MultiPila implements MultiPilaTDA {
         }
 
         // Verificamos que los valores recibidos coincidan con los topes de la multipila.
-        while(!auxComparacion.pilaVacia() && !topeMultipila.pilaVacia()) {
-            if(auxComparacion.tope() != topeMultipila.tope()) {
+        while (!auxComparacion.pilaVacia() && !topeMultipila.pilaVacia()) {
+            if (auxComparacion.tope() != topeMultipila.tope()) {
                 topesIguales = false;
             }
             auxComparacion.desapilar();
@@ -192,7 +192,7 @@ public class MultiPila implements MultiPilaTDA {
         int contador = 0;
 
         // Iteramos hasta que un elemento sea nulo o hayamos alcanzado la cantidad solicitada.
-        while(actual != null && contador < cantidad) {
+        while (actual != null && contador < cantidad) {
             // Contamos los elementos de la multipila hasta la cantidad solicitada.
             pilaAux.apilar(actual.info);
             actual = actual.sig;

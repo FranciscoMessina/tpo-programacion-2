@@ -2,13 +2,14 @@ package imple;
 
 import tda.ConjuntoTDA;
 import tda.DiccionarioSimpleModTDA;
-/*
-Ejercicio 4:
 
-Se define un nuevo TDA denominado DiccionarioSimpleModTDA basado en DiccionarioSimpleTDA,
-con la particularidad de registrar la cantidad de veces que el valor se ve modificado
-(entrada: clave-valor-factorMod). Su especificación se muestra en el anexo,
-leer detenidamente los comentarios de cada método.
+/**
+ * Ejercicio 4:
+ * <p>
+ * Se define un nuevo TDA denominado DiccionarioSimpleModTDA basado en DiccionarioSimpleTDA,
+ * con la particularidad de registrar la cantidad de veces que el valor se ve modificado
+ * (entrada: clave-valor-factorMod). Su especificación se muestra en el anexo,
+ * leer detenidamente los comentarios de cada método.
  */
 public class DiccionarioSimpleMod implements DiccionarioSimpleModTDA {
     private class Elemento {
@@ -16,6 +17,7 @@ public class DiccionarioSimpleMod implements DiccionarioSimpleModTDA {
         int valor;
         int vecesModificado;
     }
+
     Elemento[] elementos;
     int cantidadElementos;
 
@@ -29,7 +31,7 @@ public class DiccionarioSimpleMod implements DiccionarioSimpleModTDA {
     public void agregar(int clave, int valor) {
         // Buscamos a ver si ya existe la clave.
         int indice = this.clave2Indice(clave);
-        if(indice < 0) {
+        if (indice < 0) {
             // No existe la clave, se agrega un nuevo elemento
             Elemento nuevoElemento = new Elemento();
             nuevoElemento.clave = clave;
@@ -47,7 +49,7 @@ public class DiccionarioSimpleMod implements DiccionarioSimpleModTDA {
 
     private int clave2Indice(int clave) {
         int i;
-        for(i = this.cantidadElementos - 1; i >= 0 && this.elementos[i].clave != clave; --i) {
+        for (i = this.cantidadElementos - 1; i >= 0 && this.elementos[i].clave != clave; --i) {
         }
 
         return i;
@@ -79,7 +81,7 @@ public class DiccionarioSimpleMod implements DiccionarioSimpleModTDA {
         ConjuntoTDA c = new Conjunto();
         c.inicializarConjunto();
 
-        for(int i = 0; i < this.cantidadElementos; ++i) {
+        for (int i = 0; i < this.cantidadElementos; ++i) {
             c.agregar(this.elementos[i].clave);
         }
 

@@ -4,13 +4,13 @@ import tda.ColaPrioridadTDA;
 import tda.ConjuntoTDA;
 import tda.DiccionarioSimpleTDA;
 
-/*
-Ejercicio 5:
-
-Se busca implementar un DiccionarioSimpleTDA usando únicamente una ColaPrioridadTDA.
-Aclaración: se mantiene la interfaz de DiccionarioSimpleTDA; en la implementación
-en vez de utilizar un arreglo de enteros (estructura estática) o una
-lista enlazada (estructura dinámica), sólo puede usarse una ColaPrioridadTDA.
+/**
+ * Ejercicio 5:
+ * <p>
+ * Se busca implementar un DiccionarioSimpleTDA usando únicamente una ColaPrioridadTDA.
+ * Aclaración: se mantiene la interfaz de DiccionarioSimpleTDA; en la implementación
+ * en vez de utilizar un arreglo de enteros (estructura estática) o una
+ * lista enlazada (estructura dinámica), sólo puede usarse una ColaPrioridadTDA.
  */
 public class DiccionarioSimpleConColaPrioridad implements DiccionarioSimpleTDA {
     private ColaPrioridadTDA cola;
@@ -32,7 +32,7 @@ public class DiccionarioSimpleConColaPrioridad implements DiccionarioSimpleTDA {
         // Si la clave ya existe, se actualiza su valor.
         // Si la clave no existe, se acola con su valor inicial.
         // Se guardan los valores en una cola auxiliar, que después se usa para llenar la original.
-        while(!this.cola.colaVacia()) {
+        while (!this.cola.colaVacia()) {
             int clave = this.cola.primero();
 
 
@@ -43,7 +43,7 @@ public class DiccionarioSimpleConColaPrioridad implements DiccionarioSimpleTDA {
             } else {
                 // Si la clave del elemento actual es igual a la que se quiere agregar, quiere decir que el elemento ya existe.
                 // Por lo tanto, actualizamos su valor con el nuevo.
-                colaAux.acolarPrioridad(i,i1);
+                colaAux.acolarPrioridad(i, i1);
                 claveExistente = true;
             }
             this.cola.desacolar();
@@ -51,13 +51,13 @@ public class DiccionarioSimpleConColaPrioridad implements DiccionarioSimpleTDA {
 
         // Si la clave no existia, la acola con su valor inicial.
         // Entraria en este caso si es la primera vez que se agrega la clave.
-        if(!claveExistente) {
+        if (!claveExistente) {
             colaAux.acolarPrioridad(i, i1);
         }
 
         // Pasamos los valores de la cola auxiliar a la cola original.
         // Ya con el nuevo valor agregado, o actualizado.
-       while(!colaAux.colaVacia()) {
+        while (!colaAux.colaVacia()) {
             int clave = colaAux.primero();
             int prioridad = colaAux.prioridad();
             this.cola.acolarPrioridad(clave, prioridad);
@@ -137,7 +137,7 @@ public class DiccionarioSimpleConColaPrioridad implements DiccionarioSimpleTDA {
 
         // Recorremos la cola y vamos agregando las claves al conjunto.
         // Ademas pasamos sus valores a una cola auxiliar para poder restaurar la cola original.
-        while(!this.cola.colaVacia()) {
+        while (!this.cola.colaVacia()) {
             int clave = this.cola.primero();
             int prioridad = this.cola.prioridad();
 
