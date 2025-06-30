@@ -5,6 +5,11 @@ import imple.Conjunto;
 import imple.DiccionarioMultiple;
 import imple.Pila;
 import tda.*;
+import tda.GrafoTDA;
+import tda.ABBTDA;
+import tda.ConjuntoTDA;
+import imple.Grafo;
+import imple.Conjunto;
 
 public class Funciones {
     public static void main(String[] args) {
@@ -172,7 +177,7 @@ public class Funciones {
         PilaTDA pilaAux = new Pila();
         pilaAux.inicializarPila();
 
-        // En la cola usamos un array, porque es mas facil para buscar
+        // En la cola usamos un array, porque es mas fácil para buscar
         // Conicidencias, y no necesitamos otra cola para mantener el orden correcto.
         int[] elementosCola = new int[100];
         int indiceCola = 0;
@@ -363,13 +368,70 @@ public class Funciones {
 
     }
 
+
+    /*
+   Ejercicio 14:
+       /*
+    Encuentra vértices P que conectan A → P → B en el grafo.
+    Verifica aristas existentes para cada vértice posible.
+    Complejidad: O(n) (n = número de vértices).
+    */
     private ConjuntoTDA verticesPuenteEntre(GrafoTDA grafo, int verticeA, int verticeB) {
         // Creamos un conjunto para almacenar los vértices puente
         ConjuntoTDA conjuntoPuente = new Conjunto();
         conjuntoPuente.inicializarConjunto();
 
+        // Obtenemos todos los vértices del grafo
+        ConjuntoTDA todosVertices = grafo.vertices();
+
+        // Recorremos cada vértice para verificar si es puente
+        while (!todosVertices.conjuntoVacio()) {
+            int verticeActual = todosVertices.elegir();
+            todosVertices.sacar(verticeActual);
+
+            // Verificamos si hay arista de A → actual y actual → B
+            if (grafo.existeArista(verticeA, verticeActual) &&
+                    grafo.existeArista(verticeActual, verticeB)) {
+                conjuntoPuente.agregar(verticeActual);
+            }
+        }
 
         return conjuntoPuente;
     }
 
+    /*
+    Ejercicio 15:
+    Calcula (aristas salientes - aristas entrantes) para un vértice.
+    Recorre todos los vértices contando conexiones.
+    Complejidad: O(n) (n = número de vértices).
+    */
+    private int calcularGradoVertice(GrafoTDA grafo, int vertice) {
+        int aristasSalientes = 0;
+        int aristasEntrantes = 0;
+
+        // Obtenemos todos los vértices del grafo
+        ConjuntoTDA todosVertices = grafo.vertices();
+
+        // Recorremos todos los vértices para contar aristas
+        while (!todosVertices.conjuntoVacio()) {
+            int otroVertice = todosVertices.elegir();
+            todosVertices.sacar(otroVertice);
+
+            // Contamos aristas salientes (vertice → otroVertice)
+            if (grafo.existeArista(vertice, otroVertice)) {
+                aristasSalientes++;
+            }
+
+            // Contamos aristas entrantes (otroVertice → vertice)
+            if (grafo.existeArista(otroVertice, vertice)) {
+                aristasEntrantes++;
+            }
+        }
+
+        return aristasSalientes - aristasEntrantes;
+    }
+
 }
+
+
+
