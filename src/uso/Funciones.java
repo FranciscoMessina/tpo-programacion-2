@@ -31,10 +31,12 @@ public class Funciones {
         float cantidadElementos = 0;
         // Recorremos la pila y contamos los elementos pares
         // y la cantidad total de elementos.
-        // Almacenandolos en una pila auxiliar para poder restaurar la original.
+        // Almacenándolos en una pila auxiliar para poder restaurar la original.
         while (!pila.pilaVacia()) {
             int elemento = pila.tope();
             pila.desapilar();
+            // Verificamos si el elemento es par
+            // Usamos el operador módulo.
             if (elemento % 2 == 0) {
                 cantidadPares++;
             }
@@ -148,7 +150,7 @@ public class Funciones {
                 }
             }
 
-            // Si el elemento todavia no habia aparecido
+            // Si el elemento todavía no había aparecido
             // Lo agregamos a la nueva colar
             if (!yaAparecio) {
 
@@ -179,8 +181,8 @@ public class Funciones {
         PilaTDA pilaAux = new Pila();
         pilaAux.inicializarPila();
 
-        // En la cola usamos un array, porque es mas fácil para buscar
-        // Conicidencias, y no necesitamos otra cola para mantener el orden correcto.
+        // En la cola usamos un array, porque es más fácil para buscar
+        // coincidencias, y no necesitamos otra cola para mantener el orden correcto.
         int[] elementosCola = new int[100];
         int indiceCola = 0;
 
@@ -244,7 +246,6 @@ public class Funciones {
         pilaAux.inicializarPila();
 
         // Recorremos la pila y contamos las apariciones de cada elemento.
-
         while (!pila.pilaVacia()) {
             ConjuntoTDA clavesDicc = diccionario.claves();
             int elemento = pila.tope();
@@ -252,9 +253,14 @@ public class Funciones {
             pilaAux.apilar(elemento);
 
             if (clavesDicc.pertenece(elemento)) {
+                // Si el elemento ya está en el diccionario,
+                // Primero recuperamos la cantidad de apariciones del elemento,
+                // y luego lo actualizamos sumando 1.
                 int apariciones = diccionario.recuperar(elemento);
                 diccionario.agregar(elemento, apariciones + 1);
             } else {
+                // Si no estaba en el diccionario,
+                // Lo agregamos con 1 aparición.
                 diccionario.agregar(elemento, 1);
             }
         }
@@ -297,15 +303,16 @@ public class Funciones {
                 int valor = valores.elegir();
 
                 // Si el valor no está en el conjunto de valores únicos,
-                // lo agregamos
+                // lo agregamos a la cola y al conjunto de valores únicos.
                 if (!valoresUnicos.pertenece(valor)) {
                     cola.acolar(valor);
                     valoresUnicos.agregar(valor);
                 }
 
-                // Sacamos el valor del conjunto para evitar duplicados
                 valores.sacar(valor);
             }
+
+            claves.sacar(clave);
 
         }
 
@@ -331,14 +338,15 @@ public class Funciones {
 
         int raiz = abb.raiz();
 
-        // Si la raiz es impar, la sumamos
+
+        // Usamos el operador módulo para verificar si es impar.
         if (raiz % 2 != 0) {
+            // Si la raiz es impar, la sumamos
             suma += raiz;
         }
 
-        // Sumamos los elementos del hijo izquierdo
+        // Sumamos recursivamente los elementos del hijo izquierdo y derecho
         suma += sumaElementosConValorImparABB(abb.hijoIzq());
-        // Sumamos los elementos del hijo derecho
         suma += sumaElementosConValorImparABB(abb.hijoDer());
 
         return suma;
@@ -357,7 +365,7 @@ public class Funciones {
             return 0;
         }
 
-        // Verificamos si el nodo actual es una hoja. Revisando si ambos hijos estan vacios.
+        // Verificamos si el nodo actual es una hoja. Revisando si ambos hijos están vacíos.
         boolean esHoja = abb.hijoIzq().arbolVacio() && abb.hijoDer().arbolVacio();
 
         int cantidadHojasPar = 0;
@@ -365,10 +373,12 @@ public class Funciones {
         if (esHoja) {
             // Si es una hoja, verificamos si su valor es par
             if (abb.raiz() % 2 == 0) {
-                cantidadHojasPar = 1; // Contamos esta hoja
+                // Contamos esta hoja
+                cantidadHojasPar = 1;
             }
         } else {
             // Si no es una hoja, seguimos buscando en los hijos
+            // Llamamos recursivamente esta misma función para los hijos izquierdo y derecho.
             cantidadHojasPar += cantidadHojasParABB(abb.hijoIzq());
             cantidadHojasPar += cantidadHojasParABB(abb.hijoDer());
         }
