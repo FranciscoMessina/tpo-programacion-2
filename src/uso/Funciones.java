@@ -374,7 +374,7 @@ public class Funciones {
             // Si es una hoja, verificamos si su valor es par
             if (abb.raiz() % 2 == 0) {
                 // Contamos esta hoja
-                cantidadHojasPar = 1;
+                cantidadHojasPar += 1;
             }
         } else {
             // Si no es una hoja, seguimos buscando en los hijos
