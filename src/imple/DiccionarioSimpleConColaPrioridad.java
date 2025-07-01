@@ -29,8 +29,6 @@ public class DiccionarioSimpleConColaPrioridad implements DiccionarioSimpleTDA {
 
         boolean claveExistente = false;
         // Recorremos la cola y buscamos si la clave ya existe.
-        // Si la clave ya existe, se actualiza su valor.
-        // Si la clave no existe, se acola con su valor inicial.
         // Se guardan los valores en una cola auxiliar, que después se usa para llenar la original.
         while (!this.cola.colaVacia()) {
             int clave = this.cola.primero();
